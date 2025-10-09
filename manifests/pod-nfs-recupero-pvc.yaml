@@ -1,0 +1,44 @@
+#Questo funziona ma crea un nuovo pv
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv-restore
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: 192.168.1.60          # Cambia con il tuo server NFS
+    path: /USBDisk2/nfs-storage-k8s/default-test-nfs-pvc-pvc-d756ee71-5cd4-42d7-849a-f9423d8141e7 # Cartella esistente con i dati
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc-restore
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  volumeName: nfs-pv-restore   # Collega il PVC al PV esistente
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-nfs-restore
+spec:
+  containers:
+    - name: app
+      image: busybox
+      command: ["sh", "-c", "ls -la /data && sleep 3600"]
+      volumeMounts:
+        - name: nfs-storage
+          mountPath: /data
+  volumes:
+    - name: nfs-storage
+      persistentVolumeClaim:
+        claimName: nfs-pvc-restore
