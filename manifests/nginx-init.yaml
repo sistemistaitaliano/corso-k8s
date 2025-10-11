@@ -51,4 +51,24 @@ spec:
     - port: 80
       targetPort: 80
       nodePort: 30080
-
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+  labels:
+    app: nginx-server
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: test.nginx.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx-nodeport
+                port:
+                  number: 80

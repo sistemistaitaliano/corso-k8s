@@ -1,1 +1,4 @@
 .DS_Store
+manifests/certificate.crt
+manifests/private.key
+manifests/hello-world-tls.yaml
