@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: readonly-binding
+subjects:
+- kind: User
+  name: readonly-user   # deve corrispondere al CN nel certificato
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: readonly
+  apiGroup: rbac.authorization.k8s.io
