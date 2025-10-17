@@ -1,0 +1,17 @@
+apiVersion: acid.zalan.do/v1
+kind: postgresql
+metadata:
+  name: my-db
+  namespace: default
+spec:
+  teamId: "demo"
+  numberOfInstances: 3
+  volume:
+    size: 10Gi
+  postgresql:
+    version: "15"
+  users:
+    appuser: []
+  databases:
+    appdb: appuser
+  enableLogicalBackup: true

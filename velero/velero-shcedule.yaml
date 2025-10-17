@@ -1,0 +1,13 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: backup-giornaliero
+  namespace: velero
+spec:
+  schedule: "0 2 * * *"        # ogni giorno alle 02:00 AM
+  template:
+    ttl: 240h                  # conserva ogni backup per 10 giorni
+    includedNamespaces:
+      - default                # puoi mettere "*" per tutti i namespace
+    storageLocation: default   # deve corrispondere al BackupStorageLocation attivo
+    defaultVolumesToRestic: false  # metti true se usi Restic per volumi

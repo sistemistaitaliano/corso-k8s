@@ -1,0 +1,17 @@
+global:
+  smtp_smarthost: 'mail.sistemistaitaliano.it:587'
+  smtp_from: 'k8s@sistemistaitaliano.it'
+  smtp_auth_username: 'k8s@sistemistaitaliano.it'
+  smtp_auth_password: 'Password0a'   # Usa la App Password di Gmail
+  smtp_require_tls: true
+
+route:
+  receiver: 'email-team'
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 1h
+
+receivers:
+  - name: 'email-team'
+    email_configs:
+      - to: 'k8s@sistemistaitaliano.it'
