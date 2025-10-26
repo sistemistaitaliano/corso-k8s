@@ -2,7 +2,7 @@ global:
   smtp_smarthost: 'mail.sistemistaitaliano.it:587'
   smtp_from: 'k8s@sistemistaitaliano.it'
   smtp_auth_username: 'k8s@sistemistaitaliano.it'
-  smtp_auth_password: 'Password0a'   # Usa la App Password di Gmail
+  smtp_auth_password: 'PASSWORD'   # Usa la App Password di Gmail
   smtp_require_tls: true
 
 route:
